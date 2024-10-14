@@ -1,0 +1,4 @@
+name: Kloeten
+version: '1.0-SNAPSHOT'
+main: com.soupersgg.kloeten.Kloeten
+api-version: '1.21'

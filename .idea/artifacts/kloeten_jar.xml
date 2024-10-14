@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="kloeten:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/kloeten_jar</output-path>
+    <root id="archive" name="kloeten.jar">
+      <element id="module-output" name="kloeten" />
+    </root>
+  </artifact>
+</component>
