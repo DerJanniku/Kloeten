@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ClanCommand implements CommandExecutor {
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (command.getName().equalsIgnoreCase("clan")) {
             if (args.length < 1) {
                 sender.sendMessage(ChatColor.RED + "Usage: /clan <create|disband|list> [clanName]");
@@ -26,7 +26,7 @@ public class ClanCommand implements CommandExecutor {
                     // Create clan logic here
                     sender.sendMessage(ChatColor.GREEN + "Created clan " + clanNameToCreate + ".");
                     break;
-                case "disband":
+                case " disband":
                     if (args.length < 2) {
                         sender.sendMessage(ChatColor.RED + "Usage: /clan disband <clanName>");
                         return true;

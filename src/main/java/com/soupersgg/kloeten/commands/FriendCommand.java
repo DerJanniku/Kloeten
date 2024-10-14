@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.ChatColor;
 import com.soupersgg.kloeten.Kloeten;
-import com.soupersgg.kloeten.utils.CoinManager;
+
 import org.jetbrains.annotations.NotNull;
 
 public class FriendCommand implements CommandExecutor {

@@ -55,4 +55,8 @@ public class LobbyScoreboard {
 
         player.setScoreboard(board);
     }
+
+    public void removePlayerFromScoreboard(Player player) {
+        player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+    }
 }

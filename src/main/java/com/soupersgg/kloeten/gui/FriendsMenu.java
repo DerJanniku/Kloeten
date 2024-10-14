@@ -1,5 +1,6 @@
 package com.soupersgg.kloeten.gui;
 
+import com.soupersgg.kloeten.Kloeten;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,15 +11,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+
 public class FriendsMenu implements Listener {
-    private final JavaPlugin plugin;
-
-    public FriendsMenu(JavaPlugin plugin) {
-        this.plugin = plugin;
-    }
-
     public void openFriendsMenu(Player player) {
-        Inventory friendsMenu = Bukkit.createInventory(null, 27, "Friends Menu");
+        Inventory friendsMenu = Bukkit.createInventory(player, 27, "Friends Menu");
 
         ItemStack friendsItem = new ItemStack(Material.PLAYER_HEAD);
         ItemMeta friendsMeta = friendsItem.getItemMeta();
@@ -41,6 +38,17 @@ public class FriendsMenu implements Listener {
         player.openInventory(friendsMenu);
     }
 
+    public FriendsMenu(Kloeten kloeten) {
+        this.kloeten = kloeten;
+
+        // Perform any other initialization or setup required by the FriendsMenu class
+        // For example, you could initialize a list of friends or set up event listeners
+
+        // Example initialization code:
+        friends = new ArrayList<>();
+        Bukkit.getPluginManager().registerEvents(this, this);
+    }
+
     @org.bukkit.event.EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         if (event.getView().getTitle().equals("Friends Menu")) {
@@ -51,12 +59,16 @@ public class FriendsMenu implements Listener {
             if (clickedItem != null && clickedItem.hasItemMeta()) {
                 String itemName = clickedItem.getItemMeta().getDisplayName();
 
-                if (itemName.equals("Manage Friends")) {
-                    player.performCommand("friend");
-                } else if (itemName.equals("Manage Parties")) {
-                    player.performCommand("party");
-                } else if (itemName.equals("Manage Clans")) {
-                    player.performCommand("clan");
+                switch (itemName) {
+                    case "Manage Friends":
+                        player.performCommand("friend");
+                        break;
+                    case "Manage Parties":
+                        player.performCommand("party");
+                        break;
+                    case "Manage Clans":
+                        player.performCommand("clan");
+                        break;
                 }
             }
         }

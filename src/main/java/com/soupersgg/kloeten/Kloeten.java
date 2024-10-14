@@ -24,10 +24,13 @@ import java.util.Objects;
 
 public class Kloeten extends JavaPlugin implements Listener {
     private LobbyScoreboard lobbyScoreboard;
+    private TabListManager tabListManager;
 
     @Override
     public void onEnable() {
-        getLogger().info("Plugin aktiviert!");
+        getLogger().info("Plugin enabled!");
+
+        // Register commands
         Objects.requireNonNull(this.getCommand("lobby")).setExecutor(new LobbyHelpCommand());
         Objects.requireNonNull(this.getCommand("lobby spawn")).setExecutor(new LobbySpawnCommand());
         Objects.requireNonNull(this.getCommand("lobby minigames")).setExecutor(new LobbyMinigamesCommand());
@@ -35,20 +38,30 @@ public class Kloeten extends JavaPlugin implements Listener {
         Objects.requireNonNull(this.getCommand("friend")).setExecutor(new FriendCommand());
         Objects.requireNonNull(this.getCommand("party")).setExecutor(new PartyCommand());
         Objects.requireNonNull(this.getCommand("clan")).setExecutor(new ClanCommand());
+
+        // Register event listeners
         Bukkit.getPluginManager().registerEvents(new MainMenu(this), this);
         Bukkit.getPluginManager().registerEvents(new FriendsMenu(this), this);
         Bukkit.getPluginManager().registerEvents(new CosmeticsMenu(this), this);
         Bukkit.getPluginManager().registerEvents(this, this);
 
         // Initialize TabListManager
-        TabListManager tabListManager = new TabListManager(this);
+        tabListManager = new TabListManager(this);
         for (Player player : Bukkit.getOnlinePlayers()) {
             tabListManager.updateTabList(player);
         }
 
+        // Initialize LobbyScoreboard
         lobbyScoreboard = new LobbyScoreboard(this);
     }
 
-    private class ClanCommand implements CommandExecutor {
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        // Update player's tab list
+        tabListManager.updateTabList(event.getPlayer());
+
+        // Update player's scoreboard
+        lobbyScoreboard.createScoreboard(event.getPlayer());
     }
 }
+
