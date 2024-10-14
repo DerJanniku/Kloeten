@@ -1,26 +1,21 @@
 name: Kloeten
-version: '1.0-SNAPSHOT'
+version: '1.0'
 main: com.soupersgg.kloeten.Kloeten
 api-version: '1.21'
+
 commands:
   lobby:
-    description: Lobby command
-    usage: /lobby
-  lobby spawn:
-    description: Teleport to spawn
-    usage: /lobby spawn
-  lobby minigames:
-    description: Teleport to minigames
-    usage: /lobby minigames
+    description: Command to handle lobby functionality
+    aliases: [l]
+  lobby_spawn:
+    description: Command to handle lobby spawn
+  lobby_minigames:
+    description: Command to handle lobby minigames
   report:
-    description: Report a player
-    usage: /report <player>
+    description: Command to report a player
   friend:
-    description: Manage friends
-    usage: /friend
+    description: Command to manage friends
   party:
-    description: Manage parties
-    usage: /party
+    description: Command to manage parties
   clan:
-    description: Manage clans
-    usage: /clan
+    description: Command to manage clans
