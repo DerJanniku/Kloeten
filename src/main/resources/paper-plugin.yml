@@ -2,3 +2,25 @@ name: Kloeten
 version: '1.0-SNAPSHOT'
 main: com.soupersgg.kloeten.Kloeten
 api-version: '1.21'
+commands:
+  lobby:
+    description: Lobby command
+    usage: /lobby
+  lobby spawn:
+    description: Teleport to spawn
+    usage: /lobby spawn
+  lobby minigames:
+    description: Teleport to minigames
+    usage: /lobby minigames
+  report:
+    description: Report a player
+    usage: /report <player>
+  friend:
+    description: Manage friends
+    usage: /friend
+  party:
+    description: Manage parties
+    usage: /party
+  clan:
+    description: Manage clans
+    usage: /clan

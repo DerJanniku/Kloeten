@@ -1,6 +1,7 @@
 package com.soupersgg.kloeten;
 
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandMap;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.soupersgg.kloeten.commands.LobbyHelpCommand;
@@ -31,13 +32,14 @@ public class Kloeten extends JavaPlugin implements Listener {
         getLogger().info("Plugin enabled!");
 
         // Register commands
-        Objects.requireNonNull(this.getCommand("lobby")).setExecutor(new LobbyHelpCommand());
-        Objects.requireNonNull(this.getCommand("lobby spawn")).setExecutor(new LobbySpawnCommand());
-        Objects.requireNonNull(this.getCommand("lobby minigames")).setExecutor(new LobbyMinigamesCommand());
-        Objects.requireNonNull(this.getCommand("report")).setExecutor(new ReportCommand());
-        Objects.requireNonNull(this.getCommand("friend")).setExecutor(new FriendCommand());
-        Objects.requireNonNull(this.getCommand("party")).setExecutor(new PartyCommand());
-        Objects.requireNonNull(this.getCommand("clan")).setExecutor(new ClanCommand());
+
+        this.getCommand("lobby").setExecutor(new LobbyHelpCommand());
+        this.getCommand("lobby spawn").setExecutor(new LobbySpawnCommand());
+        this.getCommand("lobby minigames").setExecutor(new LobbyMinigamesCommand());
+        this.getCommand("report").setExecutor(new ReportCommand());
+        this.getCommand("friend").setExecutor(new FriendCommand());
+        this.getCommand("party").setExecutor(new PartyCommand());
+        this.getCommand("clan").setExecutor(new ClanCommand());
 
         // Register event listeners
         Bukkit.getPluginManager().registerEvents(new MainMenu(this), this);

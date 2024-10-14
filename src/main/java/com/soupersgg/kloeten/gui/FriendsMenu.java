@@ -3,6 +3,8 @@ package com.soupersgg.kloeten.gui;
 import com.soupersgg.kloeten.Kloeten;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -11,9 +13,42 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class FriendsMenu implements Listener {
+    private final Kloeten kloeten;
+    private final List<UUID> friends;
+
+    public FriendsMenu(Kloeten kloeten) {
+        this.kloeten = kloeten;
+
+        // Initialize an empty list to store friends
+        friends = new ArrayList<>();
+
+        // Register this class as an event listener
+        Bukkit.getPluginManager().registerEvents(this, kloeten);
+
+        // Initialize a configuration file to store friends data
+        File friendsFile = new File(kloeten.getDataFolder(), "friends.yml");
+        if (!friendsFile.exists()) {
+            try {
+                friendsFile.createNewFile();
+            } catch (IOException e) {
+                kloeten.getLogger().severe("Failed to create friends.yml file: " + e.getMessage());
+            }
+        }
+
+        // Load friends data from the configuration file
+        FileConfiguration friendsConfig = YamlConfiguration.loadConfiguration(friendsFile);
+        for (String uuid : friendsConfig.getKeys(false)) {
+            friends.add(UUID.fromString(uuid));
+        }
+    }
+
     public void openFriendsMenu(Player player) {
         Inventory friendsMenu = Bukkit.createInventory(player, 27, "Friends Menu");
 
@@ -36,17 +71,6 @@ public class FriendsMenu implements Listener {
         friendsMenu.setItem(15, clanItem);
 
         player.openInventory(friendsMenu);
-    }
-
-    public FriendsMenu(Kloeten kloeten) {
-        this.kloeten = kloeten;
-
-        // Perform any other initialization or setup required by the FriendsMenu class
-        // For example, you could initialize a list of friends or set up event listeners
-
-        // Example initialization code:
-        friends = new ArrayList<>();
-        Bukkit.getPluginManager().registerEvents(this, this);
     }
 
     @org.bukkit.event.EventHandler
